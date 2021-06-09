@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package tatle;
+
+message DEMCiphertext {
+  bytes nonce = 1;
+  bytes ctxt = 2;
+}
+
+message AtseCiphertext {
+  bytes gid = 1;
+  bytes mid = 2;
+  bytes demctxt = 3;
+}
+
+message KeyMaterialPb {
+  uint64 id = 1;
+  bytes keyX = 2;
+  bytes keyY = 3;
+  bytes rnd = 4;
+}
+
+message SchnorrProofPb {
+  bytes c = 1;
+  bytes u0 = 2;
+  bytes u1 = 3;
+}
+
+message RPCResponsePb {
+  bytes id = 1;
+  bytes point = 2;
+  bytes proof = 3;
+}
+
+message BatchedRPCResponsePb {
+  repeated RPCResponsePb responses = 1;
+}
+
+// pp = (p, g, h, G, H, H', y1,...,yn) in DiSE
+// pp =  (p, G2.g, G2.h, GT.g, GT.h, G2, GT, H, H2, HT, y1,...,yn) in AmorTiSE
+// implementation uses implicit parameters p, G2, GT, H, H2, HT via constants or code
+// so we save (G2.g, G2.h, GT.g, GT.h, G2.[y1,...,yn], GT.[y1,...,yn])
+message PublicParamsPb {
+  uint64 t = 1;
+  uint64 n = 2;
+  bytes generatorG2g = 3;
+  bytes generatorG2h = 4;
+  bytes generatorGTg = 5;
+  bytes generatorGTh = 6;
+  repeated bytes commitmentsG2 = 7;
+  repeated bytes commitmentsGT = 8  ;
+}
