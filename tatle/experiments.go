@@ -31,13 +31,10 @@ func measureProofSize(proof map[string]SchnorrProof) int {
 func measureCtxtSize(ctxt AtleCiphertext) int {
 	size := 0
 	size += ctxt.U0.MarshalSize()
-	fmt.Printf("U0: %d\n", ctxt.U0.MarshalSize())
 	for _, Ui := range ctxt.Us {
 		size += Ui.MarshalSize()
-		fmt.Printf("Ui: %d\n", Ui.MarshalSize())
 	}
 	size += ctxt.V.MarshalSize()
-	fmt.Printf("V: %d\n", ctxt.V.MarshalSize())
 	return size
 }
 
